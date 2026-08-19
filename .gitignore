@@ -1,0 +1,8 @@
+*
+
+!.gitignore
+
+!*.md
+!*.asm
+!*.cpp
+!*.sh
