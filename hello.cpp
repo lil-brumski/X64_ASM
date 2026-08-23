@@ -13,12 +13,17 @@ namespace Brume{
     */
     class Base {
     public:
+
         /// @brief Virtual method
         /**
          * @param volume
          */
         virtual void speak(int volume) { std::cout << "Base branch\n"; } 
+
         /// @brief Default destructor
+        /**
+         * @see Brume::Base::speak()
+         */
         virtual ~Base() = default;
     };
 
