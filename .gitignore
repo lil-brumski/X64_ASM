@@ -6,4 +6,8 @@
 !*.asm
 !*.cpp
 !*.sh
+
 !docs/
+!docs/*
+!docs/*/*
+!docs/*/*/*
