@@ -36,7 +36,7 @@ namespace Brume{
 
 
 int main() {
-  Brume::Base *basePtr = new Brume::Derived();
+  Brume::Base *basePtr = new Brume::Base();
 
   // 1. Using typeid to query the exact runtime type
   std::cout << "Runtime type: " << typeid(*basePtr).name() << "\n";
