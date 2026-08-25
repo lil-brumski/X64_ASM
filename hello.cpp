@@ -36,13 +36,14 @@ namespace Brume{
 
 
 int main() {
-  Brume::Base *basePtr = new Brume::Base();
+  Brume::Base *basePtr = new Brume::Derived();
 
   // 1. Using typeid to query the exact runtime type
   std::cout << "Runtime type: " << typeid(*basePtr).name() << "\n";
 
   // 2. Using dynamic_cast for safe downcasting
   Brume::Derived *derivedPtr = dynamic_cast<Brume::Derived *>(basePtr);
+  std::cout << "Runtime type: " << typeid(*derivedPtr).name() << "\n";
 
   if (derivedPtr != nullptr) {
     derivedPtr->uniqueAction(); // Safe to execute
