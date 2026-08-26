@@ -29,8 +29,10 @@ namespace Brume{
 
     class Derived : public Base {
     public:
+        [[deprecated("Lmao, figure out yourself gang :)")]]
         void speak(int volume) override { std::cout << "Derived branch\n"; }
-         void uniqueAction() { std::cout << "Derived-only feature code\n"; }
+        
+        void uniqueAction() { std::cout << "Derived-only feature code\n"; }
     };
 }
 
@@ -47,7 +49,10 @@ int main() {
 
   if (derivedPtr != nullptr) {
     derivedPtr->uniqueAction(); // Safe to execute
-  } else {
+    derivedPtr->speak(23);
+  }
+  else
+  {
     std::cout << "Invalid type conversion sequence\n";
   }
 
