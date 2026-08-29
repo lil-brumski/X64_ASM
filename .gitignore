@@ -7,6 +7,8 @@
 !*.cpp
 !*.sh
 
+!*.py
+
 !docs/
 !docs/*
 !docs/*/*
