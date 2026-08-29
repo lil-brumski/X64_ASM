@@ -5,5 +5,4 @@ This repo is for practicing how to use:
 - Assembly
 - Python
 - Better C++
-- CMake
-- GitHub
+
