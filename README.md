@@ -8,3 +8,5 @@ This repo is for practicing how to use:
 - CMake
 - GitHub
 - GitLab
+- KiCad
+- FreeCAD
