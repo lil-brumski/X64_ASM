@@ -2,8 +2,11 @@
 
 !.gitignore
 
+!CMakeLists.txt
+
 !*.md
 !*.asm
+!*.S
 !*.cpp
 !*.sh
 
