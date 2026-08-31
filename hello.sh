@@ -1,7 +1,7 @@
 #!/bin/bash
 
-nasm -felf64 hello.asm
-ld hello.o -o hello
+nasm -felf64 asm/hello.asm -o asm/hello.o
+ld asm/hello.o -o hello
 
-nasm -felf64 registers.asm
-ld registers.o -o registers
+nasm -felf64 asm/registers.asm -o asm/registers.o
+ld asm/registers.o -o registers

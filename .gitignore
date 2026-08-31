@@ -9,6 +9,11 @@
 
 !*.py
 
+!asm/
+!src/
+!scripts/
+!images/
+
 !docs/
 !docs/*
 !docs/*/*
