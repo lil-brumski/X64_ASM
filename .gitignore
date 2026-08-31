@@ -2,12 +2,20 @@
 
 !.gitignore
 
+!CMakeLists.txt
+
 !*.md
 !*.asm
+!*.S
 !*.cpp
 !*.sh
 
 !*.py
+
+!asm/
+!src/
+!scripts/
+!images/
 
 !docs/
 !docs/*
