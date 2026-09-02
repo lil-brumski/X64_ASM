@@ -4,6 +4,8 @@
 .data
 name:
     .ascii "Tamaratare\n"
+dept:
+    .ascii "Computer Engineering\n"
 
 .text
 
