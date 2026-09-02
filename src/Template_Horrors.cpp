@@ -1,7 +1,8 @@
 #include <iostream>
 
-///@brief This function can take any number of arguments
-/**
+/*!
+* This function can take any number of arguments
+*
 * @param aValues
 */
 template<typename... Lmao>
