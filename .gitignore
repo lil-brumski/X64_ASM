@@ -19,6 +19,4 @@
 
 
 !docs/
-!docs/*
-#!docs/*/*
-#!docs/*/*/*
+!docs/Doxyfile
