@@ -21,3 +21,5 @@
 
 !docs/
 !docs/Doxyfile
+!docs/*md
+!docs/*MD

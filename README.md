@@ -1,5 +1,10 @@
-# X64_ASM
+# X64_ASM (#main)
 
+- [X64\_ASM (#main)](#x64_asm-main)
+  - [Introduction ## {#intro}](#introduction--intro)
+  - [Building Documentation ## {#build-docs}](#building-documentation--build-docs)
+  
+## Introduction ## {#intro}
 This repo is for practicing how to use:
 - Git
 - Assembly
@@ -11,27 +16,25 @@ This repo is for practicing how to use:
 - KiCad
 - FreeCAD
 
-Cool looking code snippet right?
+## Building Documentation ## {#build-docs}
+If you're on a Debian/Ubuntu-based OS then run the following commands on your command line:
 
-```cpp
-if (derivedPtr != nullptr) {
-    derivedPtr->uniqueAction(); // Safe to execute
-    derivedPtr->speak(23);
-}
+```bash
+sudo apt update
+sudo apt install doxygen
 ```
 
-See code in [src/hello.cpp#L73-76](src/hello.cpp#L73-76 "Hey gang, wanna see this file? Me too!")
+Clone the GitHub repository:
+```bash
+git clone https://github.com/lil-brumski/X64_ASM.git
+cd X64_ASM/docs
+```
 
-<!--See this class called [Brume::Base](#Brume::Base)-->
+Finally, run:
+```bash
+doxygen Doxyfile
+cd html
+```
 
-> Written by [**David Tamaratare Oghenebrume**](https://github.com/lil-brumski) obviously gang
+Open the `index.html` file in a browser.
 
-Lmao
-
-- - -
-
-Hi, lol
-
-- - -
-
-Will it work?
