@@ -5,6 +5,7 @@
 !CMakeLists.txt
 
 !*.md
+!*.MD
 !*.asm
 !*.S
 !*.cpp
