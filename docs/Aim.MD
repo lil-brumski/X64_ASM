@@ -1,6 +1,6 @@
 [TOC]
 
-AIM {#page}
+Aim {#page}
 ==========
 
 ## Aim of Project ## {#aim-of}

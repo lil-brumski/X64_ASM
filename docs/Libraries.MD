@@ -1,6 +1,6 @@
 [TOC]
 
-LIBRARIES {#page}
+Libraries {#page}
 ======================================
 
 ## OpenCV ## {#opencv}
