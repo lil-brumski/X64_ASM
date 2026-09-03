@@ -21,5 +21,8 @@ LIBRARIES {#page}
   
 ## LibPqxx ## {#psql}
 - [ ] Enjoyed using
+- [x] Haven't used that long to have an opinion
+
+## Boost:Regex ## {#b-regex}
+- [ ] Enjoyed using
 - [ ] Haven't used that long to have an opinion
-  
