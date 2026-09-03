@@ -21,3 +21,15 @@ if (derivedPtr != nullptr) {
 ```
 
 See code in [src/hello.cpp#L73-76](src/hello.cpp#L73-76)
+
+> Written by [**David Tamaratare Oghenebrume**](https://github.com/lil-brumski) obviously gang
+
+Lmao
+
+- - -
+
+Hi, lol
+
+- - -
+
+Will it work?
