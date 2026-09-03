@@ -1,8 +1,8 @@
 # X64_ASM (#main)
 
-- [X64\_ASM (#main)](#x64_asm-main)
-  - [Introduction ## {#intro}](#introduction--intro)
-  - [Building Documentation ## {#build-docs}](#building-documentation--build-docs)
+- [X64\_ASM](#x64_asm-main)
+  - [Introduction](#introduction--intro)
+  - [Building Documentation](#building-documentation--build-docs)
   
 ## Introduction ## {#intro}
 This repo is for practicing how to use:
