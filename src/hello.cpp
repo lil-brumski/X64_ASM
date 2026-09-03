@@ -14,15 +14,16 @@ namespace Brume{
     class Base {
     public:
 
-        /// @brief Virtual method
-        /**
+        /** 
+         * @brief Virtual method
          * @param volume
+         * @return Nothing, this is a void function duh.
          */
         virtual void speak(int volume) { std::cout << "Base branch\n"; } 
 
         /// @brief Default destructor
         /**
-         * @see Brume::Base::speak()
+         * @see speak()
          */
         virtual ~Base() = default;
 
@@ -53,7 +54,7 @@ namespace Brume{
 
       /// @brief Default destructor
       /**
-       * @see Brume::Derived::speak()
+       * @see speak()
        */
       virtual ~Derived() override = default;
     };
