@@ -17,10 +17,12 @@ Cool looking code snippet right?
 if (derivedPtr != nullptr) {
     derivedPtr->uniqueAction(); // Safe to execute
     derivedPtr->speak(23);
-  }
+}
 ```
 
-See code in [src/hello.cpp#L73-76](src/hello.cpp#L73-76)
+See code in [src/hello.cpp#L73-76](src/hello.cpp#L73-76 "Hey gang, wanna see this file? Me too!")
+
+<!--See this class called [Brume::Base](#Brume::Base)-->
 
 > Written by [**David Tamaratare Oghenebrume**](https://github.com/lil-brumski) obviously gang
 
