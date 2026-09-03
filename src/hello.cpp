@@ -2,12 +2,12 @@
 #include <typeinfo> // Required for std::type_info
 
 /**
-*...Learning Docs...
-*/
+ *Brumski's doxygen learning journey begins here!
+ */
 namespace Brume{
 
     /** 
-    *...Base Class...
+    *Base Class obviously...
     *
     * That's right
     */
@@ -25,14 +25,37 @@ namespace Brume{
          * @see Brume::Base::speak()
          */
         virtual ~Base() = default;
+
+        int id; ///<This is a comment obviously
+
+    private:
+        int d; ///<Private comment, mad oh
     };
 
+    /**
+     * Child class
+     */
     class Derived : public Base {
     public:
-        [[deprecated("Lmao, figure it out yourself gang :)")]]
-        void speak(int volume) override { std::cout << "Derived branch\n"; }
+
+      /// @brief Overridden method
+      /**
+       * @param volume
+       */
+      [[deprecated("Lmao, figure it out yourself gang :)")]]
+      void speak(int volume) override {
+        std::cout << "Derived branch\n"; }
         
-        void uniqueAction() { std::cout << "Derived-only feature code\n"; }
+      /**
+       * @brief boring function
+       */
+      void uniqueAction() { std::cout << "Derived-only feature code\n"; }
+
+      /// @brief Default destructor
+      /**
+       * @see Brume::Derived::speak()
+       */
+      virtual ~Derived() override = default;
     };
 }
 
