@@ -1,8 +1,10 @@
 #include <iostream>
 #include <functional>
 /**
+ * @defgroup GRP1 Group 1 Gang
+ * Hehehehehehehe
+ * @{
  * @file Template_Horrors.cpp
- * 
  * @brief I don't know man
  * 
  * Blah blah blah gang
@@ -14,6 +16,8 @@
   * 
   * How can we do this gang?
   */
+
+ namespace Brume {
 
 /**
  * @fn void brochaho( Lmao&&... aValues )
@@ -52,10 +56,20 @@ void TestMultFunc(){
  * @brief Just your average global variable
  * 
  * Sup homie?
+ *
+ * @}
  */
 const std::function<void()>& TMF = TestMultFunc;
 
+ }
+
+/**
+* Here is an inline summation: sike.
+*
+* The distance between \f$(x_1,y_1)\f$ and \f$(x_2,y_2)\f$ is \f$\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}\f$.
+*
+*/
 int main()
 {
-  TMF();
+  Brume::TMF();
 }
