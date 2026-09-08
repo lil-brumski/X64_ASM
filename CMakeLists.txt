@@ -2,10 +2,12 @@ cmake_minimum_required(VERSION 4.0)
 
 project(LearnCMake 
         LANGUAGES CXX ASM
-        VERSION 2026.9.4
+        VERSION 2026.9.5
         DESCRIPTION "For learning CMake, Git and Doxygen among other stuff"
         HOMEPAGE_URL "https://github.com/lil-brumski/X64_ASM.git"
         )
+
+include(CMake/X64A.cmake)
 
 set(CMAKE_CXX_STANDARD 26)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -17,13 +19,25 @@ set_property(CACHE BUILT_ON PROPERTY STRINGS "Monday" "Tuesday" "Wednesday" "Thu
 
 message("${AUTHOR} uses ${CMAKE_C_COMPILER} and ${CMAKE_CXX_COMPILER} for this project. \nHe also uses C++${CMAKE_CXX_STANDARD} and x64 Intel Assembly")
 string(FIND ${AUTHOR} "a" POSofA REVERSE)
-message("POSofA = ${POSofA}")
+message("POSofA = ${POSofA}\n")
 
 ##C++
 #Target 1
 add_executable(${PROJECT_NAME}_cpp EXCLUDE_FROM_ALL src/hello.cpp)
+
 #Target 2
-add_executable(${PROJECT_NAME}_cpp_2 EXCLUDE_FROM_ALL src/Template_Horrors.cpp)
+add_executable(${PROJECT_NAME}_cpp_2 EXCLUDE_FROM_ALL)
+target_sources(${PROJECT_NAME}_cpp_2
+    PRIVATE
+        src/Template_Horrors.cpp
+
+    PUBLIC
+        FILE_SET HEADERS
+        BASE_DIRS
+            include
+        FILES
+            include/Template_Horrors.hpp
+)
 
 #Assembly 
 #Target 3
@@ -31,3 +45,6 @@ enable_language(ASM)
 add_executable(${PROJECT_NAME}_asm asm/hello.S)
 
 target_link_options(${PROJECT_NAME}_asm PRIVATE -nostdlib -static -Wno-unused-command-line-argument)
+
+macro(PRINT_RUBBISH)
+endmacro()
