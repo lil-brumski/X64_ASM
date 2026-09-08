@@ -10,13 +10,14 @@
 !*.S
 !*.cpp
 !*.sh
-
 !*.py
+!*.cmake
 
 !asm/
 !src/
 !scripts/
 !images/
+!CMake/
 
 
 !docs/
