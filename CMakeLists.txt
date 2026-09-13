@@ -7,23 +7,36 @@ project(LearnCMake
         HOMEPAGE_URL "https://github.com/lil-brumski/X64_ASM.git"
         )
 
-include(CMake/X64A.cmake)
-
-set(CMAKE_CXX_STANDARD 26)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(AUTHOR "David Tamaratare Oghenebrume" CACHE STRING "Author's name" FORCE)
+find_package(ZeroMQ REQUIRED COMPONENTS)
+find_package(cppzmq REQUIRED COMPONENTS)
+find_package(termcolor REQUIRED)
 
-set(BUILT_ON "Monday" CACHE STRING "What day of the week was it built on")
-set_property(CACHE BUILT_ON PROPERTY STRINGS "Monday" "Tuesday" "Wednesday" "Thursday" "Friday")
+include(cmake/x64a.cmake)
+include_directories(${ZeroMQ_INCLUDE_DIR})
 
-message("${AUTHOR} uses ${CMAKE_C_COMPILER} and ${CMAKE_CXX_COMPILER} for this project. \nHe also uses C++${CMAKE_CXX_STANDARD} and x64 Intel Assembly")
-string(FIND ${AUTHOR} "a" POSofA REVERSE)
-message("POSofA = ${POSofA}\n")
+set(BROs "Brume;Tare")
+list(APPEND BROs "David")
+FuncAppend(BROs "Me")
+
+foreach(X IN LISTS BROs)
+    message("See: ${X}")
+endforeach()
+
+message("")
+
+macro(PRINT_RUBBISH)
+endmacro()
 
 ##C++
 #Target 1
-add_executable(${PROJECT_NAME}_cpp EXCLUDE_FROM_ALL src/hello.cpp)
+add_executable(${PROJECT_NAME}_cpp EXCLUDE_FROM_ALL)
+target_sources(${PROJECT_NAME}_cpp
+    PRIVATE
+        src/hello.cpp
+)
 
 #Target 2
 add_executable(${PROJECT_NAME}_cpp_2 EXCLUDE_FROM_ALL)
@@ -39,12 +52,36 @@ target_sources(${PROJECT_NAME}_cpp_2
             include/Template_Horrors.hpp
 )
 
-#Assembly 
 #Target 3
+add_executable(Sapa EXCLUDE_FROM_ALL)
+target_sources(Sapa
+    PRIVATE
+        src/sapa.cpp
+)
+
+#Target 4
+add_executable(Naija99)
+target_sources(Naija99
+    PRIVATE
+        src/naija.cpp
+)
+target_link_libraries(Naija99 PRIVATE cppzmq libzmq termcolor::termcolor)
+
+#Target 5
+add_executable(Brume99)
+target_sources(Brume99
+    PRIVATE
+        src/brume99.cpp
+)
+target_link_libraries(Brume99 PRIVATE cppzmq libzmq termcolor::termcolor)
+
+#Assembly 
+#Target 6
 enable_language(ASM)
-add_executable(${PROJECT_NAME}_asm asm/hello.S)
+add_executable(${PROJECT_NAME}_asm)
+target_sources(${PROJECT_NAME}_asm
+    PRIVATE
+        asm/hello.S
+)
 
 target_link_options(${PROJECT_NAME}_asm PRIVATE -nostdlib -static -Wno-unused-command-line-argument)
-
-macro(PRINT_RUBBISH)
-endmacro()
