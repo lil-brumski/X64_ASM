@@ -1,0 +1,14 @@
+{
+    "version": 8,
+    "configurePresets": [
+        {
+            "name": "x64-asm-build",
+            "binaryDir": "${sourceDir}/buildNigga",
+            "displayName": "GitHub/GitLab CI/CD",
+            "description": "Preset to use with remote repositories like GitHub and GitLab",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        }
+    ]
+}
