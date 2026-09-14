@@ -7,7 +7,10 @@
             "displayName": "GitHub/GitLab CI/CD",
             "description": "Preset to use with remote repositories like GitHub and GitLab",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release"
+                "CMAKE_BUILD_TYPE": "Release",
+                "BUILD_LEARN_CMAKE_CPP": "ON",
+                "BUILD_LEARN_CMAKE_CPP_2": "ON",
+                "BUILD_LEARN_CMAKE_ASM": "ON"
             }
         }
     ]

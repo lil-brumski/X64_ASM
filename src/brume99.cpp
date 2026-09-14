@@ -7,13 +7,11 @@
 #include <LearnCMake.hpp>
 
 auto main( int argc, char** argv ) -> int {
-    auto [maj, min, pat] = LearnCMake_VERSION();
-
     zmq::context_t cont( 1 );
     zmq::socket_t soc( cont, zmq::socket_type::req ) ;
 
     std::cout << "Application written by " << AUTHOR_LEARN_CMAKE << std::endl;
-    std::cout << "Version: " << maj << "." << min << "." << pat << std::endl;
+    std::cout << "Version: " << Learn::Version() << std::endl;
 
     std::cout << termcolor::green << "Connecting to server gang...\n" << termcolor::reset<< std::endl;
     soc.connect("tcp://localhost:5555");

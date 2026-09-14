@@ -4,7 +4,7 @@ include(cmake/x64a.cmake)
 
 project(LearnCMake 
         LANGUAGES CXX ASM
-        VERSION "${LearnCMake_VERSION_MAJOR}.${LearnCMake_VERSION_MINOR}.${LearnCMake_VERSION_PATCH}"
+        VERSION 2026.9.14
         DESCRIPTION "For learning CMake, Git and Doxygen among other stuff"
         HOMEPAGE_URL "https://github.com/lil-brumski/X64_ASM.git"
         )
@@ -26,27 +26,54 @@ message("")
 macro(PRINT_RUBBISH)
 endmacro()
 
-##C++
-#Target 1
-add_executable(${PROJECT_NAME}_cpp EXCLUDE_FROM_ALL)
-target_sources(${PROJECT_NAME}_cpp
+add_library(Learnplusplus)
+add_library(Learn++::Learn++ ALIAS Learnplusplus)
+target_sources(Learnplusplus
     PRIVATE
-        src/hello.cpp
-)
-
-#Target 2
-add_executable(${PROJECT_NAME}_cpp_2 EXCLUDE_FROM_ALL)
-target_sources(${PROJECT_NAME}_cpp_2
-    PRIVATE
-        src/Template_Horrors.cpp
+        src/LearnCMake.cpp
 
     PUBLIC
         FILE_SET HEADERS
         BASE_DIRS
             include
         FILES
-            include/Template_Horrors.hpp
+            include/LearnCMake.hpp
 )
+target_compile_definitions(Learnplusplus
+    PUBLIC
+        AUTHOR_LEARN_CMAKE="${AUTHOR_LEARN_CMAKE}"
+        LearnCMake_VERSION_MAJOR="${CMAKE_PROJECT_VERSION_MAJOR}"
+        LearnCMake_VERSION_MINOR="${CMAKE_PROJECT_VERSION_MINOR}"
+        LearnCMake_VERSION_PATCH="${CMAKE_PROJECT_VERSION_PATCH}"
+)
+
+##C++
+if(BUILD_LEARN_CMAKE_CPP)
+    message(NOTICE "Building ${PROJECT_NAME}_cpp")
+    #Target 1
+    add_executable(${PROJECT_NAME}_cpp)
+    target_sources(${PROJECT_NAME}_cpp
+        PRIVATE
+            src/hello.cpp
+    )
+endif(BUILD_LEARN_CMAKE_CPP)
+
+if(BUILD_LEARN_CMAKE_CPP_2)
+    message(NOTICE "Building ${PROJECT_NAME}_cpp_2")
+    #Target 2
+    add_executable(${PROJECT_NAME}_cpp_2)
+    target_sources(${PROJECT_NAME}_cpp_2
+        PRIVATE
+            src/Template_Horrors.cpp
+
+        PUBLIC
+            FILE_SET HEADERS
+            BASE_DIRS
+                include
+            FILES
+                include/Template_Horrors.hpp
+    )
+endif(BUILD_LEARN_CMAKE_CPP_2)
 
 #Target 3
 add_executable(Sapa EXCLUDE_FROM_ALL)
@@ -85,22 +112,18 @@ target_sources(Brume99
         FILES
             include/LearnCMake.hpp
 )
-target_link_libraries(Brume99 PRIVATE cppzmq libzmq termcolor::termcolor)
+target_link_libraries(Brume99 PRIVATE cppzmq libzmq termcolor::termcolor Learn++::Learn++)
 target_compile_features(Brume99 PRIVATE cxx_std_20)
-target_compile_definitions(Brume99
-    PRIVATE
-        AUTHOR_LEARN_CMAKE="${AUTHOR_LEARN_CMAKE}"
-        LearnCMake_VERSION_MAJOR="${CMAKE_PROJECT_VERSION_MAJOR}"
-        LearnCMake_VERSION_MINOR="${CMAKE_PROJECT_VERSION_MINOR}"
-        LearnCMake_VERSION_PATCH="${CMAKE_PROJECT_VERSION_PATCH}"
-)
 
 #Assembly 
-#Target 6
-enable_language(ASM)
-add_executable(${PROJECT_NAME}_asm)
-target_sources(${PROJECT_NAME}_asm
-    PRIVATE
-        asm/hello.S
-)
-target_link_options(${PROJECT_NAME}_asm PRIVATE -nostdlib -static -Wno-unused-command-line-argument)
+if(BUILD_LEARN_CMAKE_ASM)
+    message(NOTICE "Building ${PROJECT_NAME}_asm")
+    #Target 6
+    enable_language(ASM)
+    add_executable(${PROJECT_NAME}_asm EXCLUDE_FROM_ALL)
+    target_sources(${PROJECT_NAME}_asm
+        PRIVATE
+            asm/hello.S
+    )
+    target_link_options(${PROJECT_NAME}_asm PRIVATE -nostdlib -static -Wno-unused-command-line-argument)
+endif(BUILD_LEARN_CMAKE_ASM)
