@@ -3,6 +3,7 @@
 !.gitignore
 
 !CMakeLists.txt
+!CMakePresets.json
 
 !*.md
 !*.MD
