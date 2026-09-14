@@ -41,6 +41,6 @@ set(AUTHOR_LEARN_CMAKE "David Tamaratare Oghenebrume" CACHE STRING "Author's nam
 set(BUILT_ON "Monday" CACHE STRING "What day of the week was it built on")
 set_property(CACHE BUILT_ON PROPERTY STRINGS "Monday" "Tuesday" "Wednesday" "Thursday" "Friday")
 
-option(BUILD_LEARN_CMAKE_CPP "Build the first C++ target" OFF)
-option(BUILD_LEARN_CMAKE_CPP_2 "Build the second C++ target" OFF)
-option(BUILD_LEARN_CMAKE_ASM "Build the first Assembly target" OFF)
+message("${AUTHOR} uses ${CMAKE_C_COMPILER} and ${CMAKE_CXX_COMPILER} for this project. \nHe also uses C++${CMAKE_CXX_STANDARD} and x64 Intel Assembly")
+string(FIND ${AUTHOR} "a" POSofA REVERSE)
+message("POSofA = ${POSofA}\n")
