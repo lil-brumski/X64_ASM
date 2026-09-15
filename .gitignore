@@ -19,7 +19,8 @@
 !scripts/
 !images/
 !cmake/
-
+!modules/*
+!modules/src/*
 
 !docs/
 !docs/Doxyfile

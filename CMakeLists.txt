@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 4.0)
 
-include(cmake/x64a.cmake)
-
 project(LearnCMake 
         LANGUAGES CXX ASM
         VERSION 2026.9.14
@@ -9,25 +7,15 @@ project(LearnCMake
         HOMEPAGE_URL "https://github.com/lil-brumski/X64_ASM.git"
         )
 
+#My Project
+include(cmake/x64a.cmake)
+
 find_package(ZeroMQ REQUIRED COMPONENTS)
 find_package(cppzmq REQUIRED COMPONENTS)
 find_package(termcolor REQUIRED)
 
-set(BROs "Brume;Tare")
-list(APPEND BROs "David")
-FuncAppend(BROs "Me")
-
-foreach(X IN LISTS BROs)
-    message("See: ${X}")
-endforeach()
-
-message("")
-
-macro(PRINT_RUBBISH)
-endmacro()
-
 ##C++
-add_library(Learnplusplus)
+add_library(Learnplusplus OBJECT)
 add_library(Learn++::Learn++ ALIAS Learnplusplus)
 target_sources(Learnplusplus
     PRIVATE
@@ -105,9 +93,14 @@ target_sources(Brume99
             include
         FILES
             include/LearnCMake.hpp
+    #PUBLIC
+        #FILE_SET CXX_MODULES
+        #TYPE CXX_MODULES
+        #FILES
+            #modules/src/LearnMod.cpp
 )
 target_link_libraries(Brume99 PRIVATE cppzmq libzmq termcolor::termcolor Learn++::Learn++)
-target_compile_features(Brume99 PRIVATE cxx_std_20)
+target_compile_features(Brume99 PRIVATE cxx_std_23)
 
 #Assembly 
 #Target 6
