@@ -13,14 +13,14 @@
 !*.sh
 !*.py
 !*.cmake
+!*.txt
 
 !asm/
 !src/
 !scripts/
 !images/
 !cmake/
-!modules/*
-!modules/src/*
+!modules/src/
 
 !docs/
 !docs/Doxyfile

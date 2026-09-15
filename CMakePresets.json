@@ -12,6 +12,7 @@
                 "BUILD_LEARN_CMAKE_CPP_2": "ON",
                 "BUILD_LEARN_CMAKE_ASM": "ON",
                 "CMAKE_ASM_COMPILER": "clang",
+                "ENABLE_IPO": "ON",
                 "CMAKE_C_COMPILER": "clang",
                 "CMAKE_CXX_COMPILER": "clang++",
                 "CMAKE_CXX_STANDARD": "26"

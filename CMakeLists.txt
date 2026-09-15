@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 4.0)
 
 project(LearnCMake 
         LANGUAGES CXX ASM
-        VERSION 2026.9.14
+        VERSION 2026.9.15
         DESCRIPTION "For learning CMake, Git and Doxygen among other stuff"
         HOMEPAGE_URL "https://github.com/lil-brumski/X64_ASM.git"
         )
@@ -10,12 +10,24 @@ project(LearnCMake
 #My Project
 include(cmake/x64a.cmake)
 
+if(ENABLE_IPO)
+    include(CheckIPOSupported)
+    check_ipo_supported(RESULT result OUTPUT output)
+
+    if(result)
+        message(NOTICE "IPO is supported on this system, hurray")
+    else()
+        message(WARNING "IPO is not supported on this system: ${output}")
+    endif(result)
+
+endif(ENABLE_IPO)
+
 find_package(ZeroMQ REQUIRED COMPONENTS)
 find_package(cppzmq REQUIRED COMPONENTS)
 find_package(termcolor REQUIRED)
 
 ##C++
-add_library(Learnplusplus OBJECT)
+add_library(Learnplusplus SHARED)
 add_library(Learn++::Learn++ ALIAS Learnplusplus)
 target_sources(Learnplusplus
     PRIVATE
@@ -70,6 +82,7 @@ target_sources(Sapa
     PRIVATE
         src/sapa.cpp
 )
+target_link_libraries(Sapa PRIVATE Learn++::Learn++)
 
 include_directories(${ZeroMQ_INCLUDE_DIR})
 
@@ -101,6 +114,11 @@ target_sources(Brume99
 )
 target_link_libraries(Brume99 PRIVATE cppzmq libzmq termcolor::termcolor Learn++::Learn++)
 target_compile_features(Brume99 PRIVATE cxx_std_23)
+set_target_properties(Brume99
+    PROPERTIES
+        INTERPROCEDURAL_OPTIMIZATION ON
+)
+
 
 #Assembly 
 #Target 6
