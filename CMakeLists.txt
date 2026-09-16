@@ -27,7 +27,7 @@ find_package(cppzmq REQUIRED COMPONENTS)
 find_package(termcolor REQUIRED)
 
 ##C++
-add_library(Learnplusplus SHARED)
+add_library(Learnplusplus OBJECT)
 add_library(Learn++::Learn++ ALIAS Learnplusplus)
 target_sources(Learnplusplus
     PRIVATE
@@ -129,3 +129,12 @@ target_sources(${PROJECT_NAME}_asm
         asm/hello.S
 )
 target_link_options(${PROJECT_NAME}_asm PRIVATE -nostdlib -static -Wno-unused-command-line-argument)
+
+add_custom_command(
+    OUTPUT Generated.cxx
+    COMMAND Brume99 Generated.cxx
+    DEPENDS Brume99
+    VERBATIM
+)
+
+add_custom_target(Sapa-Howfa-Na DEPENDS Generated.cxx)

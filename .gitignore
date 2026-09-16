@@ -21,6 +21,7 @@
 !images/
 !cmake/
 !modules/src/
+!tests/
 
 !docs/
 !docs/Doxyfile

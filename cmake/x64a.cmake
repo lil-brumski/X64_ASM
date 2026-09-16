@@ -53,6 +53,7 @@ option(BUILD_LEARN_CMAKE_CPP "Build the first C++ target" OFF)
 option(BUILD_LEARN_CMAKE_CPP_2 "Build the second C++ target" OFF)
 option(BUILD_LEARN_CMAKE_ASM "Build the first Assembly target" OFF)
 option(ENABLE_IPO "Enable Introprocedural Optimization" OFF)
+option(BUILD_TESTING "Enable Building of Tests" OFF)
 
 #Not My Project
 include(CheckIncludeFiles)
