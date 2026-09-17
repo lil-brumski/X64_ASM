@@ -205,5 +205,6 @@ install(
     FILES
         ${CMAKE_CURRENT_BINARY_DIR}/LearnCMakeConfigVersion.cmake
         ${CMAKE_CURRENT_BINARY_DIR}/LearnCMakeConfig.cmake
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/LearnCMake
+    DESTINATION
+        ${CMAKE_INSTALL_LIBDIR}/cmake/LearnCMake
 )
