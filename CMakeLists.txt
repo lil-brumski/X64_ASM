@@ -101,11 +101,26 @@ target_link_libraries(Naija99
         termcolor::termcolor protobuf::libprotobuf
 )
 target_compile_features(Naija99 PRIVATE cxx_std_20)
+protobuf_generate(
+    TARGET
+        Naija99
+    LANGUAGE
+        cpp
+    OUT_VAR
+        PROTO_FILES
+    PROTOC_OUT_DIR
+        ${CMAKE_CURRENT_BINARY_DIR}/generated
+    IMPORT_DIRS
+        ${CMAKE_CURRENT_SOURCE_DIR}/scripts
+    PROTOS
+        scripts/x64_asm.proto
+)
+target_include_directories(Naija99 PRIVATE ${CMAKE_BINARY_DIR}/generated)
 
 #Target 5
 add_executable(Brume99)
 target_sources(Brume99
-    PUBLIC
+    PRIVATE
         src/brume99.cpp
 
     #PUBLIC
@@ -139,22 +154,8 @@ protobuf_generate(
     PROTOS
         scripts/x64_asm.proto
 )
-protobuf_generate(
-    TARGET
-        Naija99
-    LANGUAGE
-        cpp
-    OUT_VAR
-        PROTO_FILES
-    PROTOC_OUT_DIR
-        ${CMAKE_CURRENT_BINARY_DIR}/generated
-    IMPORT_DIRS
-        ${CMAKE_CURRENT_SOURCE_DIR}/scripts
-    PROTOS
-        scripts/x64_asm.proto
-)
 target_include_directories(Brume99 PRIVATE ${CMAKE_BINARY_DIR}/generated)
-target_include_directories(Naija99 PRIVATE ${CMAKE_BINARY_DIR}/generated)
+
 
 #Assembly 
 #Target 6
@@ -171,8 +172,38 @@ if(BUILD_TESTING)
     add_subdirectory(tests)
 endif(BUILD_TESTING)
 
+
+install(
+    TARGETS LearnCMake_asm Brume99 Naija99
+    EXPORT LearnCMake
+)
+
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+    ${CMAKE_CURRENT_BINARY_DIR}/LearnCMakeConfigVersion.cmake
+    COMPATIBILITY ExactVersion
+)
+configure_package_config_file(
+  ${CMAKE_CURRENT_SOURCE_DIR}/LearnCMakeConfig.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/LearnCMakeConfig.cmake
+  INSTALL_DESTINATION lib/cmake/LearnCMake
+)
+
 include(GNUInstallDirs)
-install(TARGETS LearnCMake_asm Brume99 Naija99
+install(
+    TARGETS
+        LearnCMake_asm Brume99 Naija99
     RUNTIME
         DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+install(
+    EXPORT LearnCMake
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/LearnCMake
+    NAMESPACE LearnCMake::
+)
+install(
+    FILES
+        ${CMAKE_CURRENT_BINARY_DIR}/LearnCMakeConfigVersion.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/LearnCMakeConfig.cmake
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/LearnCMake
 )

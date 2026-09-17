@@ -12,6 +12,11 @@ auto main( int argc, char** argv ) -> int {
     obj1.set_firstname("Tamaratare");
     obj1.set_middlename("Oghenebrume");
     obj1.set_lastname("David");
+    obj1.set_isfemale(false);
+    obj1.set_department("Computer Engineering");
+    obj1.set_phonenumber(12345678900);
+    obj1.set_email("67@gmail.com");
+    obj1.set_age(19);
 
     std::cout << obj1.firstname() << " " << obj1.middlename() << " "
               << obj1.lastname() << std::endl;
@@ -30,7 +35,6 @@ auto main( int argc, char** argv ) -> int {
 
     for( size_t re_ = 1; re_ < 11; re_++ )
     {
-        //std::string wetin = "Who are you?";
         zmq::message_t request( obj1_data.length() );
         std::memcpy( request.data(), obj1_data.data(), obj1_data.length() );
         std::cout << termcolor::cyan << "[" << re_ <<"] Sending message to server: \"" << obj1_data << "\"" << termcolor::reset << std::endl;

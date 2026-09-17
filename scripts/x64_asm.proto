@@ -1,0 +1,18 @@
+edition = "2023";
+
+package RSU;
+
+message Student {
+    string firstName = 1;
+    string middleName = 2;
+    string lastName = 3;
+
+    bool isFemale = 4;
+
+    string department = 5;
+
+    int64 phoneNumber = 6;
+    string email = 7;
+
+    int32 age = 8;
+}

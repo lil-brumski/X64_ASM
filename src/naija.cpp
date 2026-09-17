@@ -40,9 +40,10 @@ auto main(void) -> int
             return -1;
         }
 
-        RECEIVER.ParseFromString(req.to_string());
+        [[maybe_unused]] auto temp = RECEIVER.ParseFromString(req.to_string());
 
-        std::cout << termcolor::cyan <<  "Message from client: \"" << RECEIVER.firstname() << "\"" << termcolor::reset << std::endl;
+        std::cout << termcolor::cyan <<  "Message from client: \"" << RECEIVER.firstname()
+                  << "\nAll values are initialised: " << std::boolalpha << RECEIVER.IsInitialized() << "\"" << termcolor::reset << std::endl;
         std::this_thread::sleep_for(1000ms);
 
         constexpr std::string_view kReply = "Tamaratare";
