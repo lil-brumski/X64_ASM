@@ -5,11 +5,14 @@
 
 #include <zmq.hpp>
 #include <termcolor/termcolor.hpp>
+#include <x64_asm.pb.h>
 
 using namespace std::literals;
 
 auto main(void) -> int
 {
+    RSU::Student RECEIVER;
+
     auto [ZMQ_MJ, ZMQ_MN, ZMQ_PH] = zmq::version();
 
     for(size_t cnt = 0; cnt <= 100; cnt+=20){
@@ -37,7 +40,9 @@ auto main(void) -> int
             return -1;
         }
 
-        std::cout << termcolor::cyan <<  "Message from client: \"" << req.to_string() << "\"" << termcolor::reset << std::endl;
+        RECEIVER.ParseFromString(req.to_string());
+
+        std::cout << termcolor::cyan <<  "Message from client: \"" << RECEIVER.firstname() << "\"" << termcolor::reset << std::endl;
         std::this_thread::sleep_for(1000ms);
 
         constexpr std::string_view kReply = "Tamaratare";

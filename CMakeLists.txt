@@ -22,9 +22,12 @@ if(ENABLE_IPO)
 
 endif(ENABLE_IPO)
 
+set(CMAKE_PREFIX_PATH "/home/brumski/Applications/CompiledApps")
+
 find_package(ZeroMQ REQUIRED COMPONENTS)
 find_package(cppzmq REQUIRED COMPONENTS)
 find_package(termcolor REQUIRED)
+find_package(Protobuf CONFIG REQUIRED)
 
 ##C++
 add_library(Learnplusplus OBJECT)
@@ -92,7 +95,11 @@ target_sources(Naija99
     PRIVATE
         src/naija.cpp
 )
-target_link_libraries(Naija99 PRIVATE cppzmq libzmq termcolor::termcolor)
+target_link_libraries(Naija99
+    PRIVATE
+        cppzmq libzmq-static
+        termcolor::termcolor protobuf::libprotobuf
+)
 target_compile_features(Naija99 PRIVATE cxx_std_20)
 
 #Target 5
@@ -100,12 +107,7 @@ add_executable(Brume99)
 target_sources(Brume99
     PUBLIC
         src/brume99.cpp
-    PUBLIC
-        FILE_SET HEADERS
-        BASE_DIRS
-            include
-        FILES
-            include/LearnCMake.hpp
+
     #PUBLIC
         #FILE_SET CXX_MODULES
         #TYPE CXX_MODULES
@@ -114,9 +116,8 @@ target_sources(Brume99
 )
 target_link_libraries(Brume99
     PRIVATE
-        cppzmq libzmq termcolor::termcolor
-    PUBLIC
-        Learn++::Learn++
+        cppzmq libzmq-static termcolor::termcolor
+        Learn++::Learn++ protobuf::libprotobuf
 )
 target_compile_features(Brume99 PRIVATE cxx_std_23)
 set_target_properties(Brume99
@@ -124,7 +125,36 @@ set_target_properties(Brume99
         INTERPROCEDURAL_OPTIMIZATION ON
         ENABLE_EXPORTS ON
 )
-
+protobuf_generate(
+    TARGET
+        Brume99
+    LANGUAGE
+        cpp
+    OUT_VAR
+        PROTO_FILES
+    PROTOC_OUT_DIR
+        ${CMAKE_CURRENT_BINARY_DIR}/generated
+    IMPORT_DIRS
+        ${CMAKE_CURRENT_SOURCE_DIR}/scripts
+    PROTOS
+        scripts/x64_asm.proto
+)
+protobuf_generate(
+    TARGET
+        Naija99
+    LANGUAGE
+        cpp
+    OUT_VAR
+        PROTO_FILES
+    PROTOC_OUT_DIR
+        ${CMAKE_CURRENT_BINARY_DIR}/generated
+    IMPORT_DIRS
+        ${CMAKE_CURRENT_SOURCE_DIR}/scripts
+    PROTOS
+        scripts/x64_asm.proto
+)
+target_include_directories(Brume99 PRIVATE ${CMAKE_BINARY_DIR}/generated)
+target_include_directories(Naija99 PRIVATE ${CMAKE_BINARY_DIR}/generated)
 
 #Assembly 
 #Target 6
@@ -140,3 +170,9 @@ if(BUILD_TESTING)
     enable_testing()
     add_subdirectory(tests)
 endif(BUILD_TESTING)
+
+include(GNUInstallDirs)
+install(TARGETS LearnCMake_asm Brume99 Naija99
+    RUNTIME
+        DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
