@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 4.0)
 
 project(LearnCMake 
         LANGUAGES CXX ASM
-        VERSION 2026.9.15
+        VERSION 2026.9.17
         DESCRIPTION "For learning CMake, Git and Doxygen among other stuff"
         HOMEPAGE_URL "https://github.com/lil-brumski/X64_ASM.git"
         )
@@ -98,9 +98,9 @@ target_compile_features(Naija99 PRIVATE cxx_std_20)
 #Target 5
 add_executable(Brume99)
 target_sources(Brume99
-    PRIVATE
+    PUBLIC
         src/brume99.cpp
-    PRIVATE
+    PUBLIC
         FILE_SET HEADERS
         BASE_DIRS
             include
@@ -112,11 +112,17 @@ target_sources(Brume99
         #FILES
             #modules/src/LearnMod.cpp
 )
-target_link_libraries(Brume99 PRIVATE cppzmq libzmq termcolor::termcolor Learn++::Learn++)
+target_link_libraries(Brume99
+    PRIVATE
+        cppzmq libzmq termcolor::termcolor
+    PUBLIC
+        Learn++::Learn++
+)
 target_compile_features(Brume99 PRIVATE cxx_std_23)
 set_target_properties(Brume99
     PROPERTIES
         INTERPROCEDURAL_OPTIMIZATION ON
+        ENABLE_EXPORTS ON
 )
 
 
@@ -130,11 +136,7 @@ target_sources(${PROJECT_NAME}_asm
 )
 target_link_options(${PROJECT_NAME}_asm PRIVATE -nostdlib -static -Wno-unused-command-line-argument)
 
-add_custom_command(
-    OUTPUT Generated.cxx
-    COMMAND Brume99 Generated.cxx
-    DEPENDS Brume99
-    VERBATIM
-)
-
-add_custom_target(Sapa-Howfa-Na DEPENDS Generated.cxx)
+if(BUILD_TESTING)
+    enable_testing()
+    add_subdirectory(tests)
+endif(BUILD_TESTING)
