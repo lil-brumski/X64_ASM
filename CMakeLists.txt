@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 4.0)
 
 project(LearnCMake 
         LANGUAGES CXX ASM
-        VERSION 2026.9.17
+        VERSION 2026.9.18
         DESCRIPTION "For learning CMake, Git and Doxygen among other stuff"
         HOMEPAGE_URL "https://github.com/lil-brumski/X64_ASM.git"
         )
@@ -22,12 +22,12 @@ if(ENABLE_IPO)
 
 endif(ENABLE_IPO)
 
-set(CMAKE_PREFIX_PATH "/home/brumski/Applications/CompiledApps")
-
 find_package(ZeroMQ REQUIRED COMPONENTS)
 find_package(cppzmq REQUIRED COMPONENTS)
 find_package(termcolor REQUIRED)
 find_package(Protobuf CONFIG REQUIRED)
+find_package(ftxui REQUIRED COMPONENTS screen dom)
+find_package(Slint REQUIRED COMPONENTS)
 
 ##C++
 add_library(Learnplusplus OBJECT)
@@ -122,12 +122,11 @@ add_executable(Brume99)
 target_sources(Brume99
     PRIVATE
         src/brume99.cpp
-
-    #PUBLIC
-        #FILE_SET CXX_MODULES
-        #TYPE CXX_MODULES
-        #FILES
-            #modules/src/LearnMod.cpp
+    PRIVATE
+        FILE_SET CXX_MODULES
+        TYPE CXX_MODULES
+        FILES
+            modules/src/LearnMod.cppm
 )
 target_link_libraries(Brume99
     PRIVATE
@@ -137,8 +136,9 @@ target_link_libraries(Brume99
 target_compile_features(Brume99 PRIVATE cxx_std_23)
 set_target_properties(Brume99
     PROPERTIES
-        INTERPROCEDURAL_OPTIMIZATION ON
+        EXPORT_COMPILE_COMMANDS ON
         ENABLE_EXPORTS ON
+        CXX_SCAN_FOR_MODULES ON
 )
 protobuf_generate(
     TARGET
@@ -156,7 +156,6 @@ protobuf_generate(
 )
 target_include_directories(Brume99 PRIVATE ${CMAKE_BINARY_DIR}/generated)
 
-
 #Assembly 
 #Target 6
 enable_language(ASM)
@@ -167,21 +166,26 @@ target_sources(${PROJECT_NAME}_asm
 )
 target_link_options(${PROJECT_NAME}_asm PRIVATE -nostdlib -static -Wno-unused-command-line-argument)
 
+#C++
+#Target 7
+add_executable(bmtlgb1)
+target_sources(bmtlgb1
+    PRIVATE
+        src/ui/bmtlgb-src.cpp
+)
+target_link_libraries(bmtlgb1 PRIVATE Slint::Slint)
+slint_target_sources(bmtlgb1 src/ui/bmtlgb-src.slint)
+
 if(BUILD_TESTING)
     enable_testing()
     add_subdirectory(tests)
 endif(BUILD_TESTING)
 
 
-install(
-    TARGETS LearnCMake_asm Brume99 Naija99
-    EXPORT LearnCMake
-)
-
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file(
     ${CMAKE_CURRENT_BINARY_DIR}/LearnCMakeConfigVersion.cmake
-    COMPATIBILITY ExactVersion
+    COMPATIBILITY AnyNewerVersion
 )
 configure_package_config_file(
   ${CMAKE_CURRENT_SOURCE_DIR}/LearnCMakeConfig.cmake.in
@@ -189,12 +193,15 @@ configure_package_config_file(
   INSTALL_DESTINATION lib/cmake/LearnCMake
 )
 
+
 include(GNUInstallDirs)
 install(
-    TARGETS
-        LearnCMake_asm Brume99 Naija99
-    RUNTIME
-        DESTINATION ${CMAKE_INSTALL_BINDIR}
+    TARGETS LearnCMake_asm Brume99 Naija99 Learnplusplus
+    EXPORT LearnCMake
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    FILE_SET HEADERS DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/LearnCMake
 )
 install(
     EXPORT LearnCMake

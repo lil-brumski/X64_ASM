@@ -1,13 +1,17 @@
+//import x64mod;
+
 #include <iostream>
 #include <cstring>
 
 #include <zmq.hpp>
 #include <termcolor/termcolor.hpp>
 #include <LearnCMake.hpp>
-#include <x64_asm.pb.h>
+#include "x64_asm.pb.h"
 
 auto main( int argc, char** argv ) -> int {
     //student
+    //x64mod::ModState();
+
     RSU::Student obj1;
     obj1.set_firstname("Tamaratare");
     obj1.set_middlename("Oghenebrume");
@@ -21,8 +25,8 @@ auto main( int argc, char** argv ) -> int {
     std::cout << obj1.firstname() << " " << obj1.middlename() << " "
               << obj1.lastname() << std::endl;
 
-    std::string obj1_data;
-    obj1.SerializeToString(&obj1_data);
+    ::std::string obj1_data;
+    auto const temp = obj1.SerializeToString(&obj1_data);
 
     zmq::context_t cont( 1 );
     zmq::socket_t soc( cont, zmq::socket_type::req ) ;
