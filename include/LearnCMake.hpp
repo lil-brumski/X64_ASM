@@ -1,0 +1,4 @@
+#ifndef LEARNCMAKE_HPP
+#define LEARNCMAKE_HPP
+
+#endif // LEARNCMAKE_HPP

@@ -22,7 +22,7 @@ if(ENABLE_IPO)
 
 endif(ENABLE_IPO)
 
-find_package(ZeroMQ REQUIRED COMPONENTS)
+#find_package(ZeroMQ REQUIRED COMPONENTS)
 find_package(cppzmq REQUIRED COMPONENTS)
 find_package(termcolor REQUIRED)
 find_package(Protobuf CONFIG REQUIRED)
