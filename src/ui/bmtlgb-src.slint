@@ -1,0 +1,33 @@
+export component bmtlgb inherits Window {
+    preferred-width: 720px;
+    preferred-height: 600px;
+
+    background: #5500ff;
+    title: "Learning Slint";
+
+    property <string> userName: "Tamaratare";
+    property <int> counter: 0;
+
+    Rectangle {
+        width: parent.width / 2;
+        height: parent.height / 2;
+        background: #000000;
+        border-radius: 50px;
+
+        Text {
+            font-size: 20px;
+            font-family: "Times New Roman";
+            font-weight: 600;
+
+            text: "Hello " + userName + " [" + counter + "]";
+            color: white;
+        }
+
+        TouchArea {
+            clicked => {
+                counter = counter + 1;
+            }
+        }
+
+    }
+}

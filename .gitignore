@@ -16,9 +16,11 @@
 !*.txt
 !*.cmake.in
 !*.proto
+!*.slint
 
 !asm/
 !src/
+!src/ui/
 !scripts/
 !images/
 !cmake/

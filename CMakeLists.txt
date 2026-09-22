@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 4.0)
 
 project(LearnCMake 
         LANGUAGES CXX ASM
-        VERSION 2026.9.18
+        VERSION 2026.9.21
         DESCRIPTION "For learning CMake, Git and Doxygen among other stuff"
         HOMEPAGE_URL "https://github.com/lil-brumski/X64_ASM.git"
         )
@@ -27,7 +27,9 @@ find_package(cppzmq REQUIRED COMPONENTS)
 find_package(termcolor REQUIRED)
 find_package(Protobuf CONFIG REQUIRED)
 find_package(ftxui REQUIRED COMPONENTS screen dom)
-find_package(Slint REQUIRED COMPONENTS)
+find_package(Slint CONFIG REQUIRED)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(FONTCONFIG REQUIRED fontconfig)
 
 ##C++
 add_library(Learnplusplus OBJECT)
@@ -173,8 +175,15 @@ target_sources(bmtlgb1
     PRIVATE
         src/ui/bmtlgb-src.cpp
 )
-target_link_libraries(bmtlgb1 PRIVATE Slint::Slint)
+target_link_libraries(bmtlgb1 PRIVATE Slint::Slint ${FONTCONFIG_LIBRARIES})
 slint_target_sources(bmtlgb1 src/ui/bmtlgb-src.slint)
+
+if((CMAKE_CXX_COMPILER_ID STREQUAL "Clang") AND (NOT CMAKE_BUILD_TYPE MATCHES "Debug"))
+    message("Using LTO")
+    target_compile_options(bmtlgb1 PRIVATE -flto=thin)
+    target_link_options(bmtlgb1 PRIVATE -flto=thin -fuse-ld=lld)
+    set_target_properties(bmtlgb1 PROPERTIES INTERPROCEDURAL_OPTIMIZATION ON)
+endif()
 
 if(BUILD_TESTING)
     enable_testing()
