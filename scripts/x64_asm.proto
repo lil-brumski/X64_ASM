@@ -1,5 +1,5 @@
-edition = "2023";
-
+//edition = "2023";
+syntax = "proto3";
 package RSU;
 
 message Student {

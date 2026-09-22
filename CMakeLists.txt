@@ -26,7 +26,7 @@ endif(ENABLE_IPO)
 find_package(cppzmq REQUIRED COMPONENTS)
 find_package(termcolor REQUIRED)
 find_package(Protobuf CONFIG REQUIRED)
-find_package(ftxui REQUIRED COMPONENTS screen dom)
+#find_package(ftxui REQUIRED COMPONENTS screen dom)
 find_package(Slint CONFIG REQUIRED)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(FONTCONFIG REQUIRED fontconfig)
@@ -99,7 +99,7 @@ target_sources(Naija99
 )
 target_link_libraries(Naija99
     PRIVATE
-        cppzmq libzmq-static
+        cppzmq #libzmq-static
         termcolor::termcolor protobuf::libprotobuf
 )
 target_compile_features(Naija99 PRIVATE cxx_std_20)
@@ -124,15 +124,15 @@ add_executable(Brume99)
 target_sources(Brume99
     PRIVATE
         src/brume99.cpp
-    PRIVATE
+    #[[PRIVATE
         FILE_SET CXX_MODULES
         TYPE CXX_MODULES
         FILES
-            modules/src/LearnMod.cppm
+            modules/src/LearnMod.cppm]]
 )
 target_link_libraries(Brume99
     PRIVATE
-        cppzmq libzmq-static termcolor::termcolor
+        cppzmq #[[libzmq-static]] termcolor::termcolor
         Learn++::Learn++ protobuf::libprotobuf
 )
 target_compile_features(Brume99 PRIVATE cxx_std_23)
@@ -140,7 +140,7 @@ set_target_properties(Brume99
     PROPERTIES
         EXPORT_COMPILE_COMMANDS ON
         ENABLE_EXPORTS ON
-        CXX_SCAN_FOR_MODULES ON
+        #CXX_SCAN_FOR_MODULES ON
 )
 protobuf_generate(
     TARGET
@@ -178,7 +178,7 @@ target_sources(bmtlgb1
 target_link_libraries(bmtlgb1 PRIVATE Slint::Slint ${FONTCONFIG_LIBRARIES})
 slint_target_sources(bmtlgb1 src/ui/bmtlgb-src.slint)
 
-if((CMAKE_CXX_COMPILER_ID STREQUAL "Clang") AND (NOT CMAKE_BUILD_TYPE MATCHES "Debug"))
+if((CMAKE_CXX_COMPILER_ID STREQUAL "Clang") AND (NOT CMAKE_BUILD_TYPE STREQUAL "Debug"))
     message("Using LTO")
     target_compile_options(bmtlgb1 PRIVATE -flto=thin)
     target_link_options(bmtlgb1 PRIVATE -flto=thin -fuse-ld=lld)
