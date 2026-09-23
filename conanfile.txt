@@ -1,5 +1,7 @@
 [requires]
 protobuf/7.35.0
+zeromq/4.3.5
+cppzmq/4.11.0
 
 [generators]
 CMakeDeps

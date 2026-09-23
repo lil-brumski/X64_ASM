@@ -22,11 +22,10 @@ if(ENABLE_IPO)
 
 endif(ENABLE_IPO)
 
-#find_package(ZeroMQ REQUIRED COMPONENTS)
+find_package(ZeroMQ REQUIRED COMPONENTS)
 find_package(cppzmq REQUIRED COMPONENTS)
 find_package(termcolor REQUIRED)
 find_package(Protobuf CONFIG REQUIRED)
-#find_package(ftxui REQUIRED COMPONENTS screen dom)
 find_package(Slint CONFIG REQUIRED)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(FONTCONFIG REQUIRED fontconfig)
@@ -99,7 +98,7 @@ target_sources(Naija99
 )
 target_link_libraries(Naija99
     PRIVATE
-        cppzmq #libzmq-static
+        cppzmq libzmq-static
         termcolor::termcolor protobuf::libprotobuf
 )
 target_compile_features(Naija99 PRIVATE cxx_std_20)
@@ -132,7 +131,7 @@ target_sources(Brume99
 )
 target_link_libraries(Brume99
     PRIVATE
-        cppzmq #[[libzmq-static]] termcolor::termcolor
+        cppzmq libzmq-static termcolor::termcolor
         Learn++::Learn++ protobuf::libprotobuf
 )
 target_compile_features(Brume99 PRIVATE cxx_std_23)
