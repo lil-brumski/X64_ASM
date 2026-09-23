@@ -1,4 +1,5 @@
 import {Button} from "std-widgets.slint";
+import { Bmk-One } from "bmk-rec-src.slint";
 
 export component bmtlgb inherits Window {
     preferred-width: 720px;
@@ -10,10 +11,10 @@ export component bmtlgb inherits Window {
     property <string> userName: "Tamaratare";
     property <int> counter: 0;
 
-    Rectangle {
+    Bmk-One {
         width: parent.width / 2;
         height: parent.height / 2;
-        background: #000000;
+        background: touch.pressed ? #5f5f5f : #f3f3f3;
         border-radius: 50px;
 
         Text {
@@ -22,18 +23,13 @@ export component bmtlgb inherits Window {
             font-weight: 600;
 
             text: "Hello " + userName + " [" + counter + "]";
-            color: white;
+            color: #000000;
         }
 
-        TouchArea {
+        touch := TouchArea {
             clicked => {
                 counter = counter + 1;
             }
-        }
-
-        Button {
-            width: parent.width / 4;
-            height: parent.height / 4;
         }
     }
 }

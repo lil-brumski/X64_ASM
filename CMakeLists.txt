@@ -175,7 +175,11 @@ target_sources(bmtlgb1
         src/ui/bmtlgb-src.cpp
 )
 target_link_libraries(bmtlgb1 PRIVATE Slint::Slint ${FONTCONFIG_LIBRARIES})
-slint_target_sources(bmtlgb1 src/ui/bmtlgb-src.slint)
+slint_target_sources(bmtlgb1
+    src/ui/bmtlgb-src.slint
+    LIBRARY_PATHS
+        BMK-ONE=${CMAKE_CURRENT_SOURCE_DIR}/src/ui/bmk-rec-src.slint
+)
 
 if((CMAKE_CXX_COMPILER_ID STREQUAL "Clang") AND (NOT CMAKE_BUILD_TYPE STREQUAL "Debug"))
     message("Using LTO")
