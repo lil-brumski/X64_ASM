@@ -18,6 +18,7 @@
 !*.cmake.in
 !*.proto
 !*.slint
+!*.svg
 
 !asm/
 !src/

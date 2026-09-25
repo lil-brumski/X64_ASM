@@ -7,6 +7,8 @@ export component bmtlgb inherits Window {
 
     background: #5500ff;
     title: "Learning Slint";
+    icon: @image-url("../../images/bmtlgb.svg");
+
     if wholeArea.pressed : mainPart := Rectangle {background: magenta;}
 
     property <string> userName: "Tamaratare";
@@ -36,6 +38,10 @@ export component bmtlgb inherits Window {
             clicked => {
                 counter = counter + 1;
             }
+        }
+
+        animate background {
+            duration: 200ms;
         }
     }
 
