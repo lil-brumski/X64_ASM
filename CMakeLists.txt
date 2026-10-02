@@ -81,12 +81,24 @@ endif(BUILD_LEARN_CMAKE_CPP_2)
 
 
 #Target 3
-add_executable(Sapa EXCLUDE_FROM_ALL)
+add_executable(Sapa)
 target_sources(Sapa
     PRIVATE
         src/sapa.cpp
 )
-target_link_libraries(Sapa PRIVATE Learn++::Learn++)
+# target_link_libraries(Sapa PRIVATE Learn++::Learn++)
+target_compile_options(Sapa
+    PRIVATE
+        -ffreestanding -nostdlib
+        -fno-exceptions -fno-rtti -fno-pie
+)
+target_link_options(Sapa
+    PRIVATE
+        -ffreestanding -nostdlib
+        -fno-exceptions -fno-rtti
+        -fno-pie -Wl,--entry,Sapa_Main
+)
+target_compile_features(Sapa PRIVATE cxx_std_26)
 
 include_directories(${ZeroMQ_INCLUDE_DIR})
 
