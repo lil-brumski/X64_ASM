@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 4.0)
 
 project(LearnCMake 
-        LANGUAGES CXX ASM
+        LANGUAGES C CXX ASM
         VERSION 2026.9.21
         DESCRIPTION "For learning CMake, Git and Doxygen among other stuff"
         HOMEPAGE_URL "https://github.com/lil-brumski/X64_ASM.git"
@@ -57,7 +57,13 @@ if(BUILD_LEARN_CMAKE_CPP)
     #Target 1
     add_executable(${PROJECT_NAME}_cpp)
     target_sources(${PROJECT_NAME}_cpp
-        PRIVATE
+        PRIVATEtemplate<class T>
+        concept INT_ONLY = std::is_integral_v<T>;
+
+        template<INT_ONLY T>
+        inline consteval T do_calculations( T const& aNum1, T const& aNum2 ){
+            return aNum1 + aNum2;
+        }
             src/hello.cpp
     )
 endif(BUILD_LEARN_CMAKE_CPP)
@@ -79,26 +85,29 @@ if(BUILD_LEARN_CMAKE_CPP_2)
     )
 endif(BUILD_LEARN_CMAKE_CPP_2)
 
+enable_language(ASM)
 
 #Target 3
-add_executable(Sapa)
-target_sources(Sapa
+add_executable(Sapa.elf)
+target_sources(Sapa.elf
     PRIVATE
         src/sapa.cpp
+        asm/sapa.boot.S
 )
 # target_link_libraries(Sapa PRIVATE Learn++::Learn++)
-target_compile_options(Sapa
+target_compile_options(Sapa.elf
     PRIVATE
-        -ffreestanding -nostdlib
+        -m32 -ffreestanding -nostdlib
         -fno-exceptions -fno-rtti -fno-pie
 )
-target_link_options(Sapa
+target_link_options(Sapa.elf
     PRIVATE
-        -ffreestanding -nostdlib
+        -m32 -ffreestanding -nostdlib
         -fno-exceptions -fno-rtti
-        -fno-pie -Wl,--entry,Sapa_Main
+        -fno-pie -Wl,--entry,_start
+        -T "${CMAKE_SOURCE_DIR}/asm/sapa.ld"
 )
-target_compile_features(Sapa PRIVATE cxx_std_26)
+target_compile_features(Sapa.elf PRIVATE cxx_std_26)
 
 include_directories(${ZeroMQ_INCLUDE_DIR})
 
@@ -171,7 +180,6 @@ target_include_directories(Brume99 PRIVATE ${CMAKE_BINARY_DIR}/generated)
 
 #Assembly 
 #Target 6
-enable_language(ASM)
 add_executable(${PROJECT_NAME}_asm)
 target_sources(${PROJECT_NAME}_asm
     PRIVATE
