@@ -1,7 +1,3 @@
-#cmake_minimum_required(VERSION 4.0)
-
-#project(LearnCMake_Tests)
-
 find_package(GTest REQUIRED)
 
 add_executable(LearnPPTests)
