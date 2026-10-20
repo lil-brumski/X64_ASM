@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 4.0)
 
 project(LearnCMake 
         LANGUAGES C CXX ASM
-        VERSION 2026.9.21
+        VERSION 2026.10.20
         DESCRIPTION "For learning CMake, Git and Doxygen among other stuff"
         HOMEPAGE_URL "https://github.com/lil-brumski/X64_ASM.git"
         )
@@ -21,6 +21,15 @@ if(ENABLE_IPO)
     endif(result)
 
 endif(ENABLE_IPO)
+
+include(FetchContent)
+FetchContent_Declare(
+    FTXUI
+    GIT_REPOSITORY https://github.com/ArthurSonzogni/FTXUI.git
+    GIT_TAG main
+    GIT_SHALLOW true
+)
+FetchContent_MakeAvailable(FTXUI)
 
 find_package(ZeroMQ REQUIRED COMPONENTS)
 find_package(cppzmq REQUIRED COMPONENTS)
@@ -57,13 +66,7 @@ if(BUILD_LEARN_CMAKE_CPP)
     #Target 1
     add_executable(${PROJECT_NAME}_cpp)
     target_sources(${PROJECT_NAME}_cpp
-        PRIVATEtemplate<class T>
-        concept INT_ONLY = std::is_integral_v<T>;
-
-        template<INT_ONLY T>
-        inline consteval T do_calculations( T const& aNum1, T const& aNum2 ){
-            return aNum1 + aNum2;
-        }
+        PRIVATE
             src/hello.cpp
     )
 endif(BUILD_LEARN_CMAKE_CPP)
@@ -94,7 +97,6 @@ target_sources(Sapa.elf
         src/sapa.cpp
         asm/sapa.boot.S
 )
-# target_link_libraries(Sapa PRIVATE Learn++::Learn++)
 target_compile_options(Sapa.elf
     PRIVATE
         -m32 -ffreestanding -nostdlib
@@ -194,17 +196,17 @@ target_sources(bmtlgb1
     PRIVATE
         src/ui/bmtlgb-src.cpp
 )
-target_link_libraries(bmtlgb1 PRIVATE Slint::Slint ${FONTCONFIG_LIBRARIES})
-slint_target_sources(bmtlgb1
-    src/ui/bmtlgb-src.slint
-    LIBRARY_PATHS
-        BMK-ONE=${CMAKE_CURRENT_SOURCE_DIR}/src/ui/bmk-rec-src.slint
-)
+target_link_libraries(bmtlgb1 PRIVATE #[[Slint::Slint ${FONTCONFIG_LIBRARIES}]] ftxui::screen ftxui::dom ftxui::component)
+# slint_target_sources(bmtlgb1
+#     src/ui/bmtlgb-src.slint
+#     LIBRARY_PATHS
+#         BMK-ONE=${CMAKE_CURRENT_SOURCE_DIR}/src/ui/bmk-rec-src.slint
+# )
 
-if((CMAKE_CXX_COMPILER_ID STREQUAL "Clang") AND (NOT CMAKE_BUILD_TYPE STREQUAL "Debug"))
+if(NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
     message("Using LTO")
-    target_compile_options(bmtlgb1 PRIVATE -flto=thin)
-    target_link_options(bmtlgb1 PRIVATE -flto=thin -fuse-ld=lld)
+    target_compile_options(bmtlgb1 PRIVATE -flto)
+    target_link_options(bmtlgb1 PRIVATE -flto)
     set_target_properties(bmtlgb1 PROPERTIES INTERPROCEDURAL_OPTIMIZATION ON)
 endif()
 
