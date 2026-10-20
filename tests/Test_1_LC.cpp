@@ -4,7 +4,7 @@
 
 TEST(LearnPP, VersionTest)
 {
-    EXPECT_EQ(Learn::Version(),  std::string{"2026" "." "9"  "." "19"});
+    EXPECT_EQ(Learn::Version(),  std::string{"2026" "." "10"  "." "20"});
 }
 
 auto main(int argc, char** argv) -> int {
