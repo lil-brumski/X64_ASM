@@ -1,5 +1,6 @@
 *
 
+!.clang-format
 !.gitignore
 
 !CMakeLists.txt
@@ -34,3 +35,6 @@
 !docs/Doxyfile
 !docs/*md
 !docs/*MD
+
+cmake-build-debug/
+build/
