@@ -3,8 +3,8 @@
 !.clang-format
 !.gitignore
 
-!CMakeLists.txt
-!CMakePresets.json
+!*CMakeLists.txt
+*CMakePresets.json
 
 !*.md
 !*.MD
@@ -23,6 +23,8 @@
 
 !asm/
 !src/
+!src/*
+!*src/
 !src/ui/
 !include/
 !scripts/
