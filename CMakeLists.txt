@@ -39,12 +39,15 @@ find_package(Slint CONFIG REQUIRED)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(FONTCONFIG REQUIRED fontconfig)
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
+find_package(OpenCV REQUIRED COMPONENTS core highgui imgproc imgcodecs videoio)
+find_package(SFML REQUIRED COMPONENTS system window graphics audio network )
 
 add_subdirectory(src/LearnCMake)
 add_subdirectory(src/Sapa)
 add_subdirectory(src/Naija)
-add_subdirectory(src/Brume99)
+# add_subdirectory(src/Brume99)
 add_subdirectory(src/LearnCMake_asm)
+add_subdirectory(src/LearnCV)
 
 
 #C++
@@ -54,12 +57,13 @@ target_sources(bmtlgb1
     PRIVATE
         src/ui/bmtlgb-src.cpp
 )
-target_link_libraries(bmtlgb1 PRIVATE #[[Slint::Slint ${FONTCONFIG_LIBRARIES}]] ftxui::screen ftxui::dom ftxui::component)
-# slint_target_sources(bmtlgb1
-#     src/ui/bmtlgb-src.slint
-#     LIBRARY_PATHS
-#         BMK-ONE=${CMAKE_CURRENT_SOURCE_DIR}/src/ui/bmk-rec-src.slint
-# )
+target_link_libraries(bmtlgb1 PRIVATE Slint::Slint ${FONTCONFIG_LIBRARIES})
+slint_target_sources(bmtlgb1
+    src/ui/bmtlgb-src.slint
+    LIBRARY_PATHS
+        BMK-ONE=${CMAKE_CURRENT_SOURCE_DIR}/src/ui/bmk-rec-src.slint
+)
+target_include_directories(bmtlgb1 PRIVATE ${PROJECT_BINARY_DIR})
 
 if(NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
     message("Using LTO")
@@ -88,7 +92,7 @@ configure_package_config_file(
 
 include(GNUInstallDirs)
 install(
-    TARGETS LearnCMake_asm Brume99 Naija99 Learnplusplus
+    TARGETS LearnCMake_asm Learnplusplus #[[Brume99 Naija99 ]]
     EXPORT LearnCMake
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
