@@ -1,56 +1,34 @@
+#include <SFML/System.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Network.hpp>
+#include <SFML/Window.hpp>
+
 #include <iostream>
-#include <thread>
-#include <cstring>
-#include <cstdlib>
 
-#include <zmq.hpp>
-#include <termcolor/termcolor.hpp>
-#include <x64_asm.pb.h>
+int main(){
+    sf::Window MyApplication( sf::VideoMode( 800, 600 ), "Naija: Brumski sha is the best", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize);
 
-using namespace std::literals;
+    while( MyApplication.isOpen() ){ //1
+        sf::Event event;
 
-auto main(void) -> int
-{
-    RSU::Student RECEIVER;
+        while( MyApplication.pollEvent(event) ) { //2
+            switch( event.type ){
+                case sf::Event::Closed:
+                    MyApplication.close();
+                    break;
+                case sf::Event::Resized:
+                    std::cout << "Window size: {" << event.size.width << ", " << event.size.height << "}" << std::endl;
+                    break;
+                case sf::Event::MouseMoved:
+                    std::cout << "Mouse position: {" << event.touch.finger << ", " << event.touch.x << "}" << std::endl;
+                    break;
+                default:
+                    std::cout << "Sup homie" << std::endl;
+            }
+        } //2
 
-    auto [ZMQ_MJ, ZMQ_MN, ZMQ_PH] = zmq::version();
-
-    for(size_t cnt = 0; cnt <= 100; cnt+=20){
-        std::cout << termcolor::green << "\rStarting Server..." << cnt << "%" << termcolor::reset << std::flush;
-        std::this_thread::sleep_for(1000ms);
-    }
-
-    std::cout << termcolor::green << "\nCPPZMQ LIBRARY VERSION: " << ZMQ_MJ << "." << ZMQ_MN << "." << ZMQ_PH << "\n"
-              << termcolor::reset << std::endl;
-
-    constexpr int kThreads = 2;
-    zmq::context_t con( kThreads );
-
-    zmq::socket_t soc( con, zmq::socket_type::rep );
-    soc.bind( "tcp://*:5555" );
-
-    while( true )
-    {
-        zmq::message_t req;
-        auto result = soc.recv( req, zmq::recv_flags::none );
-
-        if( result.value_or( 0 ) == 0 )
-        {
-            std::cerr << "No bytes received!" << std::endl;
-            return -1;
-        }
-
-        [[maybe_unused]] auto temp = RECEIVER.ParseFromString(req.to_string());
-
-        std::cout << termcolor::cyan <<  "Message from client: \"" << RECEIVER.firstname()
-                  << "\nAll values are initialised: " << std::boolalpha << RECEIVER.IsInitialized() << "\"" << termcolor::reset << std::endl;
-        std::this_thread::sleep_for(1000ms);
-
-        constexpr std::string_view kReply = "Tamaratare";
-        zmq::message_t rep( kReply.length() );
-        std::memcpy( rep.data(), kReply.data(), kReply.length() );
-        soc.send( rep, zmq::send_flags::none );
-    }
+    } //1
 
     return EXIT_SUCCESS;
 }

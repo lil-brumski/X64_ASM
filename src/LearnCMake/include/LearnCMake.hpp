@@ -3,7 +3,9 @@
 
 #include <string>
 
+/// @brief Omo
 struct Learn {
+    ///
     static std::string Version();
 };
 
