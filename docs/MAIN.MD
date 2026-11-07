@@ -28,14 +28,14 @@ if (derivedPtr != nullptr) {
 See code in [src/hello.cpp#L73-76](https://github.com/lil-brumski/X64_ASM/blob/main/src/hello.cpp#L73-76 "Hey gang, wanna see this file? Me too!")
 
 ## Logo ## {#logo}
-![See my logo gang!](images/drawing.svg "Cool am I right?")
+![See my logo gang!](../images/bmtlgb.svg "Cool am I right?")
 
 ## My table gang ## {#table-gang}
 | I Love | I tolerate | I don't like      |
 | ------:|:----------:|:------------------|
-| C++    | Python     | C                 |
+| C++    | Python     | Boost             |
 | Git    | CMake      | Rust              |
-| OpenCV | Boost      | GNU Make          |
+| OpenCV | C          | GNU Make          |
 | Qt     | GCC        | Using Python Pip3 |
 
 
@@ -46,6 +46,21 @@ See [Building Docs](Building Docs.MD) for Building the Documentation\n
 See [Libraries](Libraries.MD) for the C++ libraries I've used before\n
 
 \n
+
+@verbatim
+@add_toggle_cpp
+See fresh code in C++
+@snippet
+int* ptr;
+*ptr = 67;
+@end_toggle
+
+@add_toggle_python
+See fresh code in C++
+@snippet
+ptr = 45 #No pointers? Nawa oh!
+@end_toggle
+@endverbatim
 
 > [!note]
 > Guess what?

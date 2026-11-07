@@ -5,7 +5,7 @@ If you're on a Debian/Ubuntu-based OS then run the following commands on your co
 
 ```bash
 sudo apt update
-sudo apt install doxygen
+sudo apt install doxygen python3
 ```
 
 Clone the GitHub repository:
@@ -17,7 +17,7 @@ cd X64_ASM/docs
 Finally, run:
 ```bash
 doxygen Doxyfile
-cd html
+python -m http.server -d html
 ```
 
-Open the `index.html` file in a browser.
+Open the shown URL in a browser.
