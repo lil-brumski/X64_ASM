@@ -13,18 +13,25 @@ int main(){
         sf::Event event;
 
         while( MyApplication.pollEvent(event) ) { //2
+
             switch( event.type ){
                 case sf::Event::Closed:
-                    MyApplication.close();
-                    break;
+                MyApplication.close();
+                break;
+
                 case sf::Event::Resized:
-                    std::cout << "Window size: {" << event.size.width << ", " << event.size.height << "}" << std::endl;
-                    break;
+                std::cout << "Window size: {" << event.size.width << ", " << event.size.height << "}" << std::endl;
+                break;
+
                 case sf::Event::MouseMoved:
-                    std::cout << "Mouse position: {" << event.touch.finger << ", " << event.touch.x << "}" << std::endl;
-                    break;
+                std::cout << "Mouse position: {" << sf::Mouse::getPosition(MyApplication).x << ", " << sf::Mouse::getPosition(MyApplication).y << "}" << std::endl;
+                break;
+
                 default:
-                    std::cout << "Sup homie" << std::endl;
+                if( sf::Mouse::isButtonPressed(sf::Mouse::Left)) std::cout << "Left mouse button is being pressed bro" << std::endl;
+                else if( sf::Mouse::isButtonPressed(sf::Mouse::Right)) std::cout << "Right mouse button is being pressed bro" << std::endl;
+                else if( sf::Mouse::isButtonPressed(sf::Mouse::Middle)) std::cout << "Middle mouse button is being pressed bro" << std::endl;
+                else std::cout << "Sup homie" << std::endl;
             }
         } //2
 
